@@ -6,6 +6,7 @@ from sprites import Generic, Water, WildFlower, Tree, Interaction
 from pytmx.util_pygame import load_pygame
 from support import *
 from transition import Transition
+from soil import SoilLayer
 
 class Level:
     def __init__(self):
@@ -15,6 +16,7 @@ class Level:
         self.collision_sprites = pygame.sprite.Group()
         self.tree_sprites = pygame.sprite.Group()
         self.interaction_sprite = pygame.sprite.Group()
+        self.soil_layer = SoilLayer(self.all_sprites)
 
         self.setup()
         self.overlay = Overlay(self.player)
@@ -72,7 +74,8 @@ class Level:
                     self.all_sprites,
                     self.collision_sprites,
                     self.tree_sprites,
-                    self.interaction_sprite)
+                    self.interaction_sprite,
+                    self.soil_layer)
             if obj.name == 'Bed':
                 Interaction(
                     (obj.x,obj.y),
