@@ -43,9 +43,9 @@ class Player(pygame.sprite.Sprite):
 
         #inventory
         self.item_inventory = {
-            'wood':  0,
-            'apple': 0,
-            'corn':  0,
+            'wood':  10,
+            'apple': 10,
+            'corn':  10,
             'tomato':0
         }
         self.seed_inventory = {
@@ -62,6 +62,9 @@ class Player(pygame.sprite.Sprite):
         self.sleep = False
 
         self.soil_layer = soil_layer
+
+        self.water_sound = pygame.mixer.Sound('../audio/water.mp3')
+        self.water_sound.set_volume(0.2)
 
     def import_assets(self):
         self.animations = {}
@@ -199,6 +202,7 @@ class Player(pygame.sprite.Sprite):
 
         if self.selected_tool == 'water':
             self.soil_layer.water(self.target_pos)
+            self.water_sound.play()
     
     def get_target_pos(self):
         self.target_pos = self.rect.center + PLAYER_TOOL_OFFSET[self.status.split('_')[0]]
